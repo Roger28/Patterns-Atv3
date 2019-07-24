@@ -50,8 +50,8 @@ public class Core implements ICore {
 
 	private Core() {}
     
-    private static IUIController uiController;
-    private static IPluginController pluginController;
+    	private static IUIController uiController;
+    	private static IPluginController pluginController;
 	private static IAuthenticationController authenticationController;
 	private static Core instance = null;
     
