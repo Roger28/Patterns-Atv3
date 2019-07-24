@@ -50,14 +50,8 @@ public class PluginController implements IPluginController {
 				Constructor<?> constructor = classe.getDeclaredConstructor();
 				
 				if (Modifier.toString(constructor.getModifiers()).equalsIgnoreCase("private")) {
-					Method[] methods = classe.getMethods();
-					for (Method method : methods) {
-						if (method.getName().equalsIgnoreCase("getInstance")
-								&& Modifier.toString(method.getModifiers()).equalsIgnoreCase("public static")) {
-							plugin = (IPlugin) method.invoke(null);
-							break;
-						}
-					}
+					Method method = classe.getDeclaredMethod("getInstance", null);
+					plugin = (IPlugin) method.invoke(null);
 				} else
 					plugin = (IPlugin) classe.newInstance();
 
@@ -66,10 +60,10 @@ public class PluginController implements IPluginController {
 				Logger.getLogger(PluginController.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
-			if (plugin != null) {
+			if (plugin != null) 
 				if (plugin.initialize())
 					loadedPlugins.add(plugin);
-			}
+			
 		}
 
 		return true;
@@ -88,7 +82,6 @@ public class PluginController implements IPluginController {
 		for (IPlugin plugin : loadedPlugins)
 			if (classTarget.isAssignableFrom(plugin.getClass()))
 				loadedPluginsByType.add((T) plugin);
-
 		return loadedPluginsByType;
 	}
 
