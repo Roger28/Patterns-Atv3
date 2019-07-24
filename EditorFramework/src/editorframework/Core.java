@@ -5,6 +5,7 @@
  */
 package editorframework;
 
+import editorframeworkinterfaces.IAuthenticationController;
 import editorframeworkinterfaces.ICore;
 import editorframeworkinterfaces.IPluginController;
 import editorframeworkinterfaces.IUIController;
@@ -32,18 +33,26 @@ public class Core implements ICore {
     public IPluginController getPluginController() {
         return pluginController;
     }
+    
+    @Override
+    public IAuthenticationController getAuthenticationController() {
+    	return authenticationController;
+    }
 
 	private static void init() {
     	uiController = new UIController();
         pluginController = new PluginController();
+        authenticationController = new AuthenticationController();
         uiController.initialize();
         pluginController.initialize();
+        authenticationController.initialize();
     }
 
 	private Core() {}
     
     private static IUIController uiController;
     private static IPluginController pluginController;
+	private static IAuthenticationController authenticationController;
 	private static Core instance = null;
     
 }
