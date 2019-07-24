@@ -7,6 +7,12 @@ import editorframeworkinterfaces.IDocumentValidator;
 import editorframeworkinterfaces.IPlugin;
 
 public class ImageFactoryPlugin implements IPlugin, IDocumentFactory{
+	
+	public static ImageFactoryPlugin getInstance() {
+		if(instance == null)
+			instance = new ImageFactoryPlugin();
+		return instance;
+	}
 
 	@Override
 	public boolean initialize() {
@@ -32,6 +38,9 @@ public class ImageFactoryPlugin implements IPlugin, IDocumentFactory{
 	public String getSupportedExtensions() {
 		return "jpg|png|jpeg";
 	}
-
+	
+	private ImageFactoryPlugin() {}
+	
+	private static ImageFactoryPlugin instance = null;
 
 }
